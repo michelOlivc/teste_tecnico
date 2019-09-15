@@ -25,34 +25,46 @@ export default {
         return `${time.horas}:${time.minutos}`;
     },
 
-    doubleParaMonetario(d) {
-        if(d) {
-            const toStr = `${d}`.replace('.', ',');
-            const casasDecimais = toStr.split(',')[1].length;
+    doubleParaMonetario(dblValue) {
+        if(dblValue) {
+            const toStr = `${dblValue}`.replace('.', ',');
             
-            if(casasDecimais > 2) {
-                return toStr.split(',')[0] + toStr.split(',')[1].substring(0, 2);
-            } else if(casasDecimais < 2) {
-                return toStr + '0';
+            if(toStr.indexOf(',') === -1) {
+                return toStr + ',00';
+            } else {
+                const casasDecimais = toStr.split(',')[1].length;
+
+                if(casasDecimais > 2) {
+                    return toStr.split(',')[0] + toStr.split(',')[1].substring(0, 2);
+                } else if(casasDecimais < 2) {
+                    return toStr + '0';
+                }
             }
+
             return toStr;
         }
+
         return;
     },
     
-    monetarioParaDouble(m) {
-        if(m) {
-            return parseFloat(m.replace('.', ','));
+    monetarioParaDouble(money) {
+        if(money) {
+            money = `${money}`;
+            return parseFloat(money.replace('.', ','));
         }
+        
         return;
     },
 
     obterValorPorChave(key, collection) {
+        let value = '';
+
         collection.map(item => {
-            if(item.key === key)
-                return item.value;
+            if(item.key === key) {
+                value = item.value;
+            }
         });
 
-        return undefined;
+        return value;
     }
 }

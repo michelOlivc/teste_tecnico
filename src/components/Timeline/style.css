@@ -1,15 +1,14 @@
-.container {
+.wrap-box {
     margin: 0 auto;
     padding: 30px 0;
     background-color: #F0EDFA;
-    height: 1000px;
-    width: 500px;
+    min-height: 900px;
+    width: 100%;
 }
 
 .left-line {
     border-left: 2px solid rgb(0, 0, 0, 0.2);
-    height: 100%;
-    width: 98%;
-    margin-left: 25px;
-    /* margin: 10px 0 0 10px; */
+    min-height: inherit;
+    width: 80%;
+    margin-left: 50px;    
 }

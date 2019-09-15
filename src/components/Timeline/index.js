@@ -22,7 +22,7 @@ export default class Timeline extends Component {
     */
 
     render() {
-        return <div className="container">
+        return <div className="wrap-box">
             <div className="left-line">
                 <Evento />
             </div>

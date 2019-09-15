@@ -12,8 +12,7 @@ import './style.css';
 
 export default class Evento extends Component {
     state = {
-        events: [],
-        generatedId: 1,
+        events: []
     }
     
     componentDidMount() {
@@ -27,25 +26,26 @@ export default class Evento extends Component {
         const produtos = []; 
         
         await response.data.events.map(item => {
-            if(item.event === 'comprou')
+            if(item.event === 'comprou') {
                 compras.push(item);
-            else if(item.event === 'comprou-produto')
+            } else if(item.event === 'comprou-produto') {
                 produtos.push(item);
+            }
         });        
         
         const resultado = this.prepararResultadoJSON(compras, produtos);  
 
+        console.log(resultado);
         this.setState({ events: resultado });
     };
 
     prepararResultadoJSON = (compras, produtos) => {
-        const id = this.state.generatedId;
         const resultado = [];
         
-        compras.map(item => {
+        compras.map((item, index) => {
             const transaction_id = Util.obterValorPorChave("transaction_id", item.custom_data);
             const compra = {
-                id: `${id}`,
+                id: `${index}`,
                 loja: Util.obterValorPorChave("store_name", item.custom_data),
                 data: Util.obterDataTimestamp(item.timestamp),
                 horas: Util.obterHorasTimestamp(item.timestamp),
@@ -54,82 +54,78 @@ export default class Evento extends Component {
             }
 
             compra.produtos.map(produto => {
-                compra.valorTotal += produto.preco;
+                compra.valorTotal += Util.monetarioParaDouble(produto.preco);
             });
+
             compra.valorTotal = Util.doubleParaMonetario(compra.valorTotal);
-                
+            
             resultado.push(compra);
         });
         
         resultado.sort((a, b) => {
-            if(a < b) return -1;
-            if(a > b) return 1;
+            if(a < b) { return -1; }
+            if(a > b) { return 1; }
             
             return 0;
         });
-        
-        this.setState({ generatedId: generatedId + 1 });
+
         return resultado;
     }
 
     buscarProdutosPorTransactionID = (produtos, transactionID) => {
-        const id = this.state.generatedId;
         const produtosPorID = [];        
-        produtos.map(item => {
+        produtos.map((item, index) => {
             const itemID = Util.obterValorPorChave("transaction_id", item.custom_data);
-            
-            if(transactionID === itemID) {
-                const valor = Util.obterValorPorChave("product_price", item.custom_data)
+            const valor = Util.obterValorPorChave("product_price", item.custom_data)
 
-                const produto = {
-                    id: `${id}`,
+            if(transactionID === itemID) {
+                    const produto = {
+                    id: `${index}`,
                     nome: Util.obterValorPorChave("product_name", item.custom_data),
-                    preco: Util.monetarioParaDouble(valor)
+                    preco: Util.doubleParaMonetario(valor)
                 }
 
                 produtosPorID.push(produto);
-                ;
             }
         });
 
-        this.setState({ generatedId: generatedId + 1 });
         return produtosPorID;
     }
 
     render() {
         return <div className="container">
             {this.state.events.map(compra => (
-                <div className="row element">
-                    <div className="col-4-lg col-4-md col-4-sm">
+                <div key={compra.id} className="row element">
+                    <div className="col-2-xl col-1-lg col-1-md col-1-sm col-1-xs">
                         <div className="check-icons">
                             <Check viewBox='0 0 22 22' height="75px" width="40px" />
                         </div>
                     </div>
-                    <div className="col-8-lg col-8-md col-8-sm">
+                    <div className="col-10-xl col-11-lg col-11-md col-11-sm col-11-xs">
                         <div className="speech-bubble event-box">
                             <div className="row event-header">
-                                <div className="col-3-lg col-3-md col-3-sm">
+                                <div className="col-3-xl col-3-lg col-3-md col-3-sm col-3-xs">
                                     <div id="item-data">
                                         <Calendar viewBox='0 -2 8 8' width='20px' height='100%' />
                                         {compra.data}
                                     </div>
                                 </div>
-                                <div className="col-3-lg col-3-md col-3-sm">
+                                <div className="col-3-xl col-3-lg col-3-md col-3-sm col-3-xs">
                                     <div id="item-data">
                                         <Clock viewBox='0 -2.5 9 9' width='20px' height='100%' />
-                                        {compra.hora}
+                                        {compra.horas}
                                     </div>
                                 </div>
-                                <div className="col-3-lg col-3-md col-3-sm">
+                                <div className="col-3-xl col-3-lg col-3-md col-3-sm col-3-xs">
                                     <div id="item-data">
                                         <Place viewBox='0 -1.5 9 9' width='20px' height='100%' />
                                         {compra.loja}
                                     </div>
                                 </div>
-                                <div className="col-3-lg col-3-md col-3-sm">
+                                <div className="col-3-xl col-3-lg col-3-md col-3-sm col-3-xs">
                                     <div id="item-data">
                                         <Money viewBox='0 -1.5 9 9' width='20px' height='100%' />
-                                        {compra.valorTotal}
+                                        R$ {compra.valorTotal}
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +141,7 @@ export default class Evento extends Component {
                                         {compra.produtos.map(produto => (
                                             <tr key={produto.id}>
                                                 <td>{produto.nome}</td>
-                                                <td className="preco">{produto.preco}</td>
+                                                <td className="preco">R$ {produto.preco}</td>
                                             </tr>
                                         ))}                                        
                                     </tbody>
