@@ -10,7 +10,7 @@ import Place from '../../icons/Place';
 
 import './style.css';
 
-export default class Evento extends Component {
+export default class Eventos extends Component {
     state = {
         events: []
     }
