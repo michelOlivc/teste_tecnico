@@ -1,0 +1,62 @@
+.speech-bubble {
+	position: relative;
+    background: #fafafa;
+    border-radius: .4em;
+    width: 100%;
+}
+
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 11%;
+	width: 0;
+	height: 0;
+	border: 10px solid transparent;
+	border-right-color: #fff;
+	border-left: 0;
+	margin-top: -10px;
+	margin-left: -10px;
+}
+
+.speech-bubble > .row {
+    margin: 0;
+}
+
+tbody > tr {
+    border-top: 1px solid rgb(102, 102, 153, .1);
+}
+
+tbody td, thead td {
+    font-size: 10pt;
+}
+
+.event-box {
+    margin: 10px 10px 10px 20px;
+}
+
+.event-header {
+    background-color: #fff !important;
+    border-radius: .4em;
+    padding: 8px 0;
+}
+
+.products {
+    background-color: #fafafa;
+    padding: 0 20px;
+    margin: 0;
+    border-radius: .4em;
+}
+
+#item-data {
+    padding: 3px 10px;
+    font-size: 12pt;
+}
+
+.table {
+    margin-bottom: 10px !important;
+}
+
+#produto {
+    min-width: 100%;
+}
