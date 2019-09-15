@@ -66,10 +66,10 @@ export default class Eventos extends Component {
         });
         
         resultado.sort((a, b) => {
-            if(a['dataObj'] < b['dataObj']) { 
+            if(a['dataObj'] > b['dataObj']) { 
                 return -1; 
             }
-            if(a['dataObj'] > b['dataObj']) { 
+            if(a['dataObj'] < b['dataObj']) { 
                 return 1; 
             }
             
