@@ -44,9 +44,12 @@ export default class Evento extends Component {
         
         compras.map((item, index) => {
             const transaction_id = Util.obterValorPorChave("transaction_id", item.custom_data);
+
+
             const compra = {
                 id: `${index}`,
                 loja: Util.obterValorPorChave("store_name", item.custom_data),
+                dataObj: Util.converterISOStringParaDate(item.timestamp),
                 data: Util.obterDataTimestamp(item.timestamp),
                 horas: Util.obterHorasTimestamp(item.timestamp),
                 produtos: this.buscarProdutosPorTransactionID(produtos, transaction_id),
@@ -63,8 +66,12 @@ export default class Evento extends Component {
         });
         
         resultado.sort((a, b) => {
-            if(a < b) { return -1; }
-            if(a > b) { return 1; }
+            if(a['dataObj'] < b['dataObj']) { 
+                return -1; 
+            }
+            if(a['dataObj'] > b['dataObj']) { 
+                return 1; 
+            }
             
             return 0;
         });
