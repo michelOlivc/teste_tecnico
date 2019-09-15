@@ -1,0 +1,83 @@
+.speech-bubble {
+	position: relative;
+    background: #fafafa;
+    border-radius: .4em;
+    width: 100%;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.2);
+}
+
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 20px;
+	height: 0;
+	border: 10px solid transparent;
+	border-right-color: #fff;
+	border-left: 0;
+	margin-top: -10px;
+    margin-left: -10px;
+}
+
+.speech-bubble > .row {
+    margin: 0;
+}
+
+.element {
+    margin: 0 !important;
+}
+
+tbody > tr {
+    border-top: 1px solid rgb(102, 102, 153, .1);
+}
+
+tbody td, thead th {
+    font-size: 10pt;
+}
+
+.event-box {
+    margin: 10px 10px 20px 10px;
+}
+
+.event-header {
+    background-color: #fff !important;
+    border-radius: .4em;
+    padding: 6px 0;
+}
+
+.products {
+    background-color:#fafafa;
+    padding: 0 20px;
+    margin: 0;
+    border-radius: .4em;
+}
+
+#item-data {
+    padding: 3px 10px;
+    font-size: 12pt;
+}
+
+#item-data > svg {
+    margin-bottom: -3px;
+}
+
+.table {
+    margin-bottom: 10px !important;
+}
+
+.check-icons {
+    margin-left: -13.3px;
+}
+
+.produto {
+    min-width: 100%;
+}
+
+.preco {
+    max-width: 30px;
+}
+
+.container {
+    padding: 0 !important;
+    margin: 0 !important;
+}
